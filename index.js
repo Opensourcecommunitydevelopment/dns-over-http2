@@ -55,13 +55,13 @@ const server = dnsd.createServer((req, res) => {
 			  request({
 			    url: forwardUrl,
 			    qs: query
-			  }, (err, response, output) => {  console.dir(output)    
+			  }, (err, response, output) => {   
 				  if(typeof output.Authority!=='undefined'){fallback=true;}
 				  	else if(typeof output.Answer!=='undefined'){ console.log('Prefer AAAA for', hostname);
 							  
 							  if (output && output.Answer && output.Question[0]['type']==28) {      
 						      res.answer = output.Answer.map(rec => {
-						        rec.ttl = rec.TTL;
+						    	rec.ttl = rec.TTL;
 						        rec.type = Constants.type_to_label(rec.type);
 						       //cname
 						      if (rec.type== 'AAAA')rec.data = ip6.normalize(rec.data); //fix dnsd/encode.js:132-133 As expects long IPVersion 6 format
@@ -99,6 +99,8 @@ const server = dnsd.createServer((req, res) => {
 		  }, (err, response, output) => {    
 		    if (output && output.Answer) {      
 		      res.answer = output.Answer.map(rec => {
+		    	//override
+			    
 		        rec.ttl = rec.TTL;
 		        rec.type = Constants.type_to_label(rec.type);
 		        switch (rec.type) {
@@ -110,9 +112,13 @@ const server = dnsd.createServer((req, res) => {
 		            rec.data = rec.data.slice(1, -1);
 		            break;
 		          case 'AAAA':
-		            // dnsd is expecting long IPVersion 6 format
-		            rec.data = ip6.normalize(rec.data);
-		            break;
+			            // dnsd is expecting long IPVersion 6 format
+			            rec.data = ip6.normalize(rec.data);
+			            break;
+		          case 'A':
+		        	  fallbackready=true;
+			            break;
+			                  
 		        }
 
         if(!fallbackready || fallback)return rec;

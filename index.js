@@ -1,3 +1,5 @@
+'use strict';
+
 process.setMaxListeners(0);
 
 const dnsd = require('./dnsd/named');

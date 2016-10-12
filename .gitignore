@@ -1,83 +1,59 @@
-# Ignore VSCode Configuration #
-###################
-/.settings
-/.vscode
-
-# Ignore Processed and Derived files
-/index.html
-/script.js
-/styles.css
-
-# Ignore Visual Studio Project #
-###################
-*.user
-*.gpState
-*.suo
-bin
-obj
-/packages
-
-# Ignore Node & Bower
-###################
-node_modules
-bower_components
-build
-#.tmp
-
-# Ignore Test reporters
-###################
-**/test/coverage
-report
-
-# mongo db
-###################
-#Don't commit Mongo Database files
-*.lock
-*.0
-*.1
-*.ns
-journal
-
-# Ignore Web Storm #
-.idea
-
-# Compiled source #
-###################
-*.com
-*.class
-*.dll
-*.exe
-*.o
-*.so
-
-# Packages #
-############
-# it's better to unpack these files and commit the raw source
-# git has its own built in compression methods
-*.7z
-*.dmg
-*.gz
-*.iso
-*.jar
-*.rar
-*.tar
-*.xap
-*.zip
-
-# Logs and databases #
-######################
-*.log
-*.sql
-*.sqlite
-# *.sdf
-*.mdf
-*.ldf
-
-# OS generated files #
-######################
-.DS_Store*
-ehthumbs.db
-Icon?
-Thumbs.db
-
-
+{
+  "name": "template",
+  "version": "0.1.0",
+  "description": "FreeCodeCamp, Zipline Project, template.",
+  "author": "Gilbert Joseph Smith III",
+  "license": "MIT",
+  "homepage": "https://github.com/GJSmith3rd/template#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GJSmith3rd/template.git"
+  },
+  "scripts": {
+    "init": "npm install",
+    "start": "app.js"
+  },
+  "bugs": {
+    "url": "https://github.com/GJSmith3rd/template/issues"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.12.3",
+    "del": "^1.2.0",
+    "eslint-stylish": "^0.2.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-copy": "0.0.2",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-csso": "^2.0.0",
+    "gulp-filter": "^4.0.0",
+    "gulp-htmlmin": "^2.0.0",
+    "gulp-if": "^2.0.0",
+    "gulp-inject": "^4.0.0",
+    "gulp-jscs": "^3.0.2",
+    "gulp-jshint": "^2.0.0",
+    "gulp-less": "^3.0.5",
+    "gulp-license": "^1.1.0",
+    "gulp-load-plugins": "^1.2.2",
+    "gulp-nodemon": "^2.0.6",
+    "gulp-plumber": "^1.1.0",
+    "gulp-print": "^2.0.1",
+    "gulp-rename": "1.2.2",
+    "gulp-task-listing": "^1.0.1",
+    "gulp-uglify": "^1.5.3",
+    "gulp-useref": "^3.0.8",
+    "gulp-util": "^3.0.7",
+    "jquery": "^2.2.3",
+    "jshint": "^2.9.2",
+    "jshint-stylish": "^2.1.0",
+    "wiredep": "^4.0.0",
+    "yargs": "^4.6.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "compression": "^1.6.1",
+    "cors": "^2.7.1",
+    "express": "^4.13.4",
+    "morgan": "^1.7.0",
+    "serve-favicon": "^2.3.0"
+  }
+}

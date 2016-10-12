@@ -1,5 +1,3 @@
-'use strict';
-
 process.setMaxListeners(0);
 
 const dnsd = require('./dnsd/named');
@@ -36,9 +34,10 @@ const server = dnsd.createServer((req, res) => {
 	} else {
 		let fallback = false; let fallbackready = false;
 		if (req.question[0].type == 'A') {
-			question.type = 'AAAA'; console.log('Testing AAAA for', hostname);
-			let timeStamp6 = `[${req.id}/${req.connection.type}] ${req.opcode} ${hostname} ${question.class} ${question.type}`;
-			console.time(timeStamp6);
+			question.type = 'AAAA';
+			let timeStamp6 = `[${req.id}/${req.connection.type}] Preference ${req.opcode} ${hostname} ${question.class} ${question.type}`;
+			console.time(timeStamp6); 
+			console.log('Testing %s for %s', question.type,hostname);
 			// API clients concerned about possible side-channel privacy attacks
 			// using the packet sizes of HTTPS GET requests can use this to make all
 			// requests exactly the same size by padding requests with random data.
@@ -49,27 +48,32 @@ const server = dnsd.createServer((req, res) => {
 				// safe but can be more extended chars-_
 				charset: 'alphanumeric'
 			}); let query = {
-				//  edns_client_subnet: subnet || '',
-				name: hostname,
-				type: Constants.type_to_number(question.type),
-				random_padding: padding
-			};
+					name: hostname,
+					type: Constants.type_to_number(question.type),
+					random_padding: padding
+		    }
+
+		    if (subnet) {
+		    		query.edns_client_subnet = subnet;
+		    }
 
 			request({
 				url: forwardUrl,
 				qs: query
 			}, (err, response, output) => {
-				console.dir(output)
-				if (typeof output.Authority !== 'undefined') { fallback = true; }
+				if (typeof output.Authority !== 'undefined') { 
+					fallback = true; 
+					}
 				else if (typeof output.Answer !== 'undefined') {
-					console.log('Prefer AAAA for', hostname);
-
 					if (output && output.Answer && output.Question[0]['type'] === 28) {
 						res.answer = output.Answer.map(rec => {
 							rec.ttl = rec.TTL;
 							rec.type = Constants.type_to_label(rec.type);
-							//cname
-							if (rec.type === 'AAAA') { rec.data = ip6.normalize(rec.data); } //fix dnsd/encode.js:132-133 As expects long IPVersion 6 format
+							//CNAME
+							if (rec.type === 'AAAA') { 
+								// dnsd is expecting long IP Version 6 format
+								rec.data = ip6.normalize(rec.data); 
+								}
 							return rec;
 						});
 					} else if (err) {
@@ -79,68 +83,75 @@ const server = dnsd.createServer((req, res) => {
 					res.end();
 				}
 			});
+			//Reset Back to and for Original query Type
 			question.type = 'A';
+		}  
+      
+	   // API clients concerned about possible side-channel privacy attacks
+	   // using the packet sizes of HTTPS GET requests can use this to make all
+	   // requests exactly the same size by padding requests with random data.
+	   let padding = randomstring.generate({
+	     // maximum dnslength+NSEC3PARAM.length (longest possible Type now)
+	     // minus current To make always equal query lenght url
+	     length: 263 - question.name.length - question.type.length,
+	     // safe but can be more extended chars-_
+	     charset: 'alphanumeric'
+	   });
+
+	   let query = {
+	     name: hostname,
+	     type: Constants.type_to_number(question.type),
+	     random_padding: padding
+	   }
+
+	   if (subnet) {
+	     query.edns_client_subnet = subnet;
+	   }
+
+	   request({
+	     url: forwardUrl,
+	     qs: query
+	   }, (err, response, output) => {
+	     if (output && output.Answer) {
+	       res.answer = output.Answer.map(rec => {
+	         rec.ttl = rec.TTL;
+	         rec.type = Constants.type_to_label(rec.type);
+	         switch (rec.type) {
+	           case 'MX':
+	             rec.data = rec.data.split(/\s+/);
+	             break;
+	           case 'TXT':
+	           case 'SPF':
+	             rec.data = rec.data.slice(1, -1);
+	             break;
+	           case 'AAAA':
+	             // dnsd is expecting long IPVersion 6 format
+	             rec.data = ip6.normalize(rec.data);
+	             break;
+		       case 'A':
+		         fallbackready=true;
+			     break;			                  
+				}
+
+				if (!fallbackready || fallback) { return rec; }
+			});
+		} else if (err) {
+			console.error('request error %s', err);
 		}
-
-		// API clients concerned about possible side-channel privacy attacks
-		// using the packet sizes of HTTPS GET requests can use this to make all
-		// requests exactly the same size by padding requests with random data.
-		let padding = randomstring.generate({
-			// maximum dnslength+NSEC3PARAM.length (longest possible Type now)
-			// minus current To make always equal query lenght url
-			length: 263 - question.name.length - question.type.length,
-			// safe but can be more extended chars-_
-			charset: 'alphanumeric'
-		});
-
-		let query = {
-			//  edns_client_subnet: subnet || '',
-			name: hostname,
-			type: Constants.type_to_number(question.type),
-			random_padding: padding
-		};
-
-		request({
-			url: forwardUrl,
-			qs: query
-		}, (err, response, output) => {
-			if (output && output.Answer) {
-				res.answer = output.Answer.map(rec => {
-					rec.ttl = rec.TTL;
-					rec.type = Constants.type_to_label(rec.type);
-					switch (rec.type) {
-						case 'MX':
-							rec.data = rec.data.split(/\s+/);
-							break;
-						case 'TXT':
-						case 'SPF':
-							rec.data = rec.data.slice(1, -1);
-							break;
-						case 'AAAA':
-							// dnsd is expecting long IP Version 6 format
-							rec.data = ip6.normalize(rec.data);
-							break;
-					}
-
-					if (!fallbackready || fallback) { return rec; }
-				});
-			} else if (err) {
-				console.error('request error %s', err);
-			}
-			console.timeEnd(timeStamp);
-			if (!fallbackready || fallback) { res.end(); }
-		});
-	}
+		console.timeEnd(timeStamp);
+		if (!fallbackready || fallback) { res.end(); }
+	});
+}
 });
 
 server.once('error', err => {
-	console.error('dnsd error: %s', err);
+console.error('dnsd error: %s', err);
 });
 
 const devnull = require('dev-null');
 setInterval(() => {
-	let ping = forwardUrl + '?name=' + resolver.hostname;
-	request(ping).pipe(devnull());
+let ping = forwardUrl + '?name=' + resolver.hostname;
+request(ping).pipe(devnull());
 }, 60 * 1000);
 
 server.listen(process.argv[2] || 6666, process.argv[3] || '127.0.0.1');

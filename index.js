@@ -34,7 +34,7 @@ const server = dnsd.createServer((req, res) => {
 		console.timeEnd(timeStamp);
 		return res.end();
 	} else {
-		var fallback = false; var fallbackready = false;
+		let fallback = false; let fallbackready = false;
 		if (req.question[0].type == 'A') {
 			question.type = 'AAAA'; console.log('Testing AAAA for', hostname);
 			let timeStamp6 = `[${req.id}/${req.connection.type}] ${req.opcode} ${hostname} ${question.class} ${question.type}`;

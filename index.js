@@ -1,3 +1,5 @@
+'use strict';
+
 process.setMaxListeners(0);
 
 const dnsd = require('./dnsd/named');
@@ -36,7 +38,7 @@ const server = dnsd.createServer((req, res) => {
 		if (req.question[0].type == 'A') {
 			question.type = 'AAAA';
 			let timeStamp6 = `[${req.id}/${req.connection.type}] Preference ${req.opcode} ${hostname} ${question.class} ${question.type}`;
-			console.time(timeStamp6); 
+			console.time(timeStamp6);
 			console.log('Testing %s for %s', question.type,hostname);
 			// API clients concerned about possible side-channel privacy attacks
 			// using the packet sizes of HTTPS GET requests can use this to make all
@@ -48,10 +50,10 @@ const server = dnsd.createServer((req, res) => {
 				// safe but can be more extended chars-_
 				charset: 'alphanumeric'
 			}); let query = {
-					name: hostname,
-					type: Constants.type_to_number(question.type),
-					random_padding: padding
-		    }
+				name: hostname,
+				type: Constants.type_to_number(question.type),
+				random_padding: padding
+			};
 
 		    if (subnet) {
 		    		query.edns_client_subnet = subnet;
@@ -61,8 +63,8 @@ const server = dnsd.createServer((req, res) => {
 				url: forwardUrl,
 				qs: query
 			}, (err, response, output) => {
-				if (typeof output.Authority !== 'undefined') { 
-					fallback = true; 
+				if (typeof output.Authority !== 'undefined') {
+					fallback = true;
 					}
 				else if (typeof output.Answer !== 'undefined') {
 					if (output && output.Answer && output.Question[0]['type'] === 28) {
@@ -70,9 +72,9 @@ const server = dnsd.createServer((req, res) => {
 							rec.ttl = rec.TTL;
 							rec.type = Constants.type_to_label(rec.type);
 							//CNAME
-							if (rec.type === 'AAAA') { 
+							if (rec.type === 'AAAA') {
 								// dnsd is expecting long IP Version 6 format
-								rec.data = ip6.normalize(rec.data); 
+								rec.data = ip6.normalize(rec.data);
 								}
 							return rec;
 						});
@@ -85,8 +87,8 @@ const server = dnsd.createServer((req, res) => {
 			});
 			//Reset Back to and for Original query Type
 			question.type = 'A';
-		}  
-      
+		}
+
 	   // API clients concerned about possible side-channel privacy attacks
 	   // using the packet sizes of HTTPS GET requests can use this to make all
 	   // requests exactly the same size by padding requests with random data.
@@ -98,11 +100,11 @@ const server = dnsd.createServer((req, res) => {
 	     charset: 'alphanumeric'
 	   });
 
-	   let query = {
-	     name: hostname,
-	     type: Constants.type_to_number(question.type),
-	     random_padding: padding
-	   }
+		 let query = {
+			 name: hostname,
+			 type: Constants.type_to_number(question.type),
+			 random_padding: padding
+		 };
 
 	   if (subnet) {
 	     query.edns_client_subnet = subnet;
@@ -130,7 +132,7 @@ const server = dnsd.createServer((req, res) => {
 	             break;
 		       case 'A':
 		         fallbackready=true;
-			     break;			                  
+			     break;
 				}
 
 				if (!fallbackready || fallback) { return rec; }

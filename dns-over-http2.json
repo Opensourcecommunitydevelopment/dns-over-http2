@@ -1,0 +1,10 @@
+{
+  "apps" : [{
+    "name"        : "dns-over-http2",
+    "script"      : "~/Workspaces/GIT-Projects/dns-over-http2/index.js",
+    "args"        : ["75.106.114.165", 6666, "127.0.0.1"],
+    "env": {
+        "NODE_ENV": "production"
+    }
+  }]
+}

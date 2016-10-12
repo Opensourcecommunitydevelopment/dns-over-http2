@@ -1,4 +1,4 @@
-{
+{//PM2 multiprocess management.
   "apps": [
     {
     "name"        : "dns-over-http2#1",
@@ -7,8 +7,6 @@
     "env": {
         "NODE_ENV": "production"
     },
-      //"error_file": "/var/www/logs/proj-0.err.log",
-      //"out_file": "/var/www/logs/proj-0.out.log"
     },
     {
       "exec_mode": "fork_mode",
@@ -18,8 +16,6 @@
       "env": {
         "NODE_ENV": "production"
       },
-     // "error_file": "/var/www/logs/proj-1.err.log",
-      //"out_file": "/var/www/logs/proj-1.out.log"
     },    {
       "exec_mode": "fork_mode",
       "script": "C:/app/dns-over-http2-master/index.js",
@@ -28,8 +24,6 @@
       "env": {
         "NODE_ENV": "production"
       },
-     // "error_file": "/var/www/logs/proj-1.err.log",
-      //"out_file": "/var/www/logs/proj-1.out.log"
     },    {
       "exec_mode": "fork_mode",
       "script": "C:/app/dns-over-http2-master/index.js",
@@ -38,8 +32,6 @@
       "env": {
         "NODE_ENV": "production"
       },
-     // "error_file": "/var/www/logs/proj-1.err.log",
-      //"out_file": "/var/www/logs/proj-1.out.log"
     },    {
       "exec_mode": "fork_mode",
       "script": "C:/app/dns-over-http2-master/index.js",
@@ -48,8 +40,6 @@
       "env": {
         "NODE_ENV": "production"
       },
-     // "error_file": "/var/www/logs/proj-1.err.log",
-      //"out_file": "/var/www/logs/proj-1.out.log"
     },    {
       "exec_mode": "fork_mode",
       "script": "C:/app/dns-over-http2-master/index.js",
@@ -58,8 +48,6 @@
       "env": {
         "NODE_ENV": "production"
       },
-     // "error_file": "/var/www/logs/proj-1.err.log",
-      //"out_file": "/var/www/logs/proj-1.out.log"
     },    {
       "exec_mode": "fork_mode",
       "script": "C:/app/dns-over-http2-master/index.js",
@@ -68,8 +56,6 @@
       "env": {
         "NODE_ENV": "production"
       },
-     // "error_file": "/var/www/logs/proj-1.err.log",
-      //"out_file": "/var/www/logs/proj-1.out.log"
     },    {
       "exec_mode": "fork_mode",
       "script": "C:/app/dns-over-http2-master/index.js",
@@ -78,8 +64,6 @@
       "env": {
         "NODE_ENV": "production"
       },
-     // "error_file": "/var/www/logs/proj-1.err.log",
-      //"out_file": "/var/www/logs/proj-1.out.log"
     },
   ]
 }

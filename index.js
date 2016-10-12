@@ -133,13 +133,17 @@ const server = dnsd.createServer((req, res) => {
 			     break;			                  
 				}
 
-				if (!fallbackready || fallback) { return rec; }
+				if (!fallbackready || fallback) { 
+					return rec; 
+					}
 			});
 		} else if (err) {
 			console.error('request error %s', err);
 		}
 		console.timeEnd(timeStamp);
-		if (!fallbackready || fallback) { res.end(); }
+		if (!fallbackready || fallback) { 
+			res.end(); 
+			}
 	});
 }
 });

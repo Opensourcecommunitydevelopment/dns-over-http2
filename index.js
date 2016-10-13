@@ -3,11 +3,11 @@
 process.setMaxListeners(0);
 
 const dnsd = require('./dnsd/named');
-const spdy = require('spdy');
-const randomstring = require('randomstring');
 const randomCase = require('random-case');
-const forwardUrl = 'https://dns.google.com:443/resolve';
+const randomstring = require('randomstring');
+const spdy = require('spdy');
 const url = require('url');
+const forwardUrl = 'https://dns.google.com:443/resolve';
 const resolver = url.parse(forwardUrl);
 
 const request = require('request').defaults({

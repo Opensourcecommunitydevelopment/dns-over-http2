@@ -25,7 +25,8 @@
     "random-case": "^1.0.0",
     "randomstring": "^1.1.5",
     "request": "^2.75.0",
-    "spdy": "^3.4.3"
+    "spdy": "^3.4.3",
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "benchmark": "^2.1.1"

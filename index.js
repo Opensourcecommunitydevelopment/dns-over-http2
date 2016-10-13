@@ -5,6 +5,7 @@ process.setMaxListeners(0);
 const dnsd = require('./dnsd/named');
 const spdy = require('spdy');
 const randomstring = require('randomstring');
+const randomCase = require('random-case');
 const forwardUrl = 'https://dns.google.com:443/resolve';
 const url = require('url');
 const resolver = url.parse(forwardUrl);
@@ -25,10 +26,16 @@ const subnet = process.argv[4];
 const SupportTypes = ['A', 'MX', 'CNAME', 'TXT', 'PTR', 'AAAA'];
 
 const server = dnsd.createServer((req, res) => {
-	let question = req.question[0], hostname = question.name;
+	let question = req.question[0], 
+	/* Use  0x20-encoded  random  bits  in  the  query  to  foil  spoof
+	 * attempts.   This  perturbs  the lowercase and uppercase of query
+	 * names sent to authority servers and checks if  the  reply  still
+	 * has  the  correct casing. This feature is an Experimental 
+	 * implementation of draft dns-0x20. */ 
+	hostname = randomCase(question.name);
 	let timeStamp = `[${req.id}/${req.connection.type}] ${req.opcode} ${hostname} ${question.class} ${question.type}`;
-	console.time(timeStamp);
-
+	console.time(timeStamp);	
+	
 	// TODO unsupported due to dnsd's broken implementation.
 	if (SupportTypes.indexOf(question.type) === -1) {
 		console.timeEnd(timeStamp);

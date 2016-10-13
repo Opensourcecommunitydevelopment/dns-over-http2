@@ -51,9 +51,9 @@ const server = dnsd.createServer((req, res) => {
 			// using the packet sizes of HTTPS GET requests can use this to make all
 			// requests exactly the same size by padding requests with random data.
 			let padding = randomstring.generate({
-				// maximum dnslength+NSEC3PARAM.length (longest possible Type now)
+				// maximum dnslength+type.length (longest possible Type 5 digits)
 				// minus current To make always equal query lenght url
-				length: 263 - question.name.length - question.type.length,
+				length: 258 - question.name.length - Constants.type_to_number(question.type).length,
 				// safe but can be more extended chars-_
 				charset: 'alphanumeric'
 			}); let query = {
@@ -72,6 +72,8 @@ const server = dnsd.createServer((req, res) => {
 			}, (err, response, output) => {
 				if (typeof output.Authority !== 'undefined') { 
 					fallback = true; 
+					//fix A Query blocking
+					
 					}
 				else if (typeof output.Answer !== 'undefined') {
 					if (output && output.Answer && output.Question[0]['type'] === 28) {
@@ -100,9 +102,9 @@ const server = dnsd.createServer((req, res) => {
 	   // using the packet sizes of HTTPS GET requests can use this to make all
 	   // requests exactly the same size by padding requests with random data.
 	   let padding = randomstring.generate({
-	     // maximum dnslength+NSEC3PARAM.length (longest possible Type now)
+	     // maximum dnslength+type.length (longest possible Type 5 digits)
 	     // minus current To make always equal query lenght url
-	     length: 263 - question.name.length - question.type.length,
+	     length: 258 - question.name.length - Constants.type_to_number(question.type),
 	     // safe but can be more extended chars-_
 	     charset: 'alphanumeric'
 	   });

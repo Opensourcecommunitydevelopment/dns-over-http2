@@ -37,11 +37,11 @@ const server = dnsd.createServer((req, res) => {
 	console.time(timeStamp);	
 	
 	// TODO unsupported due to dnsd's broken implementation.
-	//if (SupportTypes.indexOf(question.type) === -1) {
-	//	console.timeEnd(timeStamp);
-	//	return res.end();
-	//} else 
-	//{
+	if (SupportTypes.indexOf(question.type) === -1) {
+		console.timeEnd(timeStamp);
+		return res.end();
+	} else 
+	{
 		if (req.question[0].type == 'A') {
 			question.type = 'AAAA';
 			let timeStamp6 = `[${req.id}/${req.connection.type}] Preference ${req.opcode} ${hostname} ${question.class} ${question.type}`;
@@ -201,7 +201,7 @@ const server = dnsd.createServer((req, res) => {
 			
 		}
 			
-			
+	}		
 });
 
 

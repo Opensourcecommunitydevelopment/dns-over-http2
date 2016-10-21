@@ -3,7 +3,7 @@
     {
     "name"        : "dns-over-http2#1",
     "script"      : "C:/app/dns-over-http2-master/index.js",
-    "args"        : [532, "127.0.0.1"],
+    "args"        : [532, "0.0.0.0"],
     "env": {
         "NODE_ENV": "production"
     },
@@ -12,7 +12,7 @@
       "exec_mode": "fork_mode",
       "script": "C:/app/dns-over-http2-master/index.js",
       "name": "dns-over-http2#2",
-      "args"        : [533, "127.0.0.1"],
+      "args"        : [533, "0.0.0.0"],
       "env": {
         "NODE_ENV": "production"
       },
@@ -20,7 +20,7 @@
       "exec_mode": "fork_mode",
       "script": "C:/app/dns-over-http2-master/index.js",
       "name": "dns-over-http2#3",
-      "args"        : [534, "127.0.0.1"],
+      "args"        : [534, "0.0.0.0"],
       "env": {
         "NODE_ENV": "production"
       },
@@ -28,7 +28,7 @@
       "exec_mode": "fork_mode",
       "script": "C:/app/dns-over-http2-master/index.js",
       "name": "dns-over-http2#4",
-      "args"        : [535, "127.0.0.1"],
+      "args"        : [535, "0.0.0.0"],
       "env": {
         "NODE_ENV": "production"
       },
@@ -36,7 +36,7 @@
       "exec_mode": "fork_mode",
       "script": "C:/app/dns-over-http2-master/index.js",
       "name": "dns-over-http2#5",
-      "args"        : [536, "127.0.0.1"],
+      "args"        : [536, "0.0.0.0"],
       "env": {
         "NODE_ENV": "production"
       },
@@ -44,7 +44,7 @@
       "exec_mode": "fork_mode",
       "script": "C:/app/dns-over-http2-master/index.js",
       "name": "dns-over-http2#6",
-      "args"        : [537, "127.0.0.1"],
+      "args"        : [537, "0.0.0.0"],
       "env": {
         "NODE_ENV": "production"
       },
@@ -52,7 +52,7 @@
       "exec_mode": "fork_mode",
       "script": "C:/app/dns-over-http2-master/index.js",
       "name": "dns-over-http2#7",
-      "args"        : [538, "127.0.0.1"],
+      "args"        : [538, "0.0.0.0"],
       "env": {
         "NODE_ENV": "production"
       },
@@ -60,7 +60,7 @@
       "exec_mode": "fork_mode",
       "script": "C:/app/dns-over-http2-master/index.js",
       "name": "dns-over-http2#8",
-      "args"        : [539, "127.0.0.1"],
+      "args"        : [539, "0.0.0.0"],
       "env": {
         "NODE_ENV": "production"
       },

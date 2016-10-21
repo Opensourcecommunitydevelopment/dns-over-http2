@@ -1,0 +1,1 @@
+pm2 start .\dns-over-http2.json

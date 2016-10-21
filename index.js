@@ -55,7 +55,7 @@ const server = dnsd.createServer((req, res) => {
 				// maximum dnslength+type.length (longest possible Type 5
 				// digits)
 				// minus current To make always equal query lenght url
-				length: 258 - question.name.length - Constants.type_to_number(question.type).length,
+				length: 258 - question.name.length - Constants.type_to_number(question.type).toString().length,
 				// safe but can be more extended chars-_
 				charset: 'alphanumeric'
 			}); let query = {
@@ -70,9 +70,9 @@ const server = dnsd.createServer((req, res) => {
 
 			request({
 				url: forwardUrl,
-				qs: query
+				qs: query,
+				gzip: true
 			}, (err, response, output) => {
-				if (typeof output.Authority !== 'undefined') {
 					// fix A Query blocking
 					// Reset Back to and for Original query Type fallback
 					question.type = 'A';
@@ -96,7 +96,8 @@ const server = dnsd.createServer((req, res) => {
 
 					request({
 						url: forwardUrl,
-						qs: query
+						qs: query,
+						gzip: true
 					}, (err, response, output) => {
 						if (output && output.Answer) {
 							res.answer = output.Answer.map(rec => {
@@ -116,7 +117,7 @@ const server = dnsd.createServer((req, res) => {
 					});
 				}
 				else if (typeof output.Answer !== 'undefined') {
-					if (output && output.Answer && output.Question[0]['type'] === 28) {
+					if (output && output.Answer && output.Question[0]['type'] === 28 ) {
 						res.answer = output.Answer.map(rec => {
 							rec.ttl = rec.TTL;
 							rec.type = Constants.type_to_label(rec.type);
@@ -149,7 +150,7 @@ const server = dnsd.createServer((req, res) => {
 				// maximum dnslength+type.length (longest possible Type 5
 				// digits)
 				// minus current To make always equal query lenght url
-				length: 258 - question.name.length - Constants.type_to_number(question.type),
+				length: 258 - question.name.length - Constants.type_to_number(question.type).toString().length,
 				// safe but can be more extended chars-_
 				charset: 'alphanumeric'
 			});
@@ -166,8 +167,9 @@ const server = dnsd.createServer((req, res) => {
 
 			request({
 				url: forwardUrl,
-				qs: query
-			}, (err, response, output) => {
+				qs: query,
+				gzip: true
+			}, (err, response, output) => {				
 				if (output && output.Answer) {
 					res.answer = output.Answer.map(rec => {
 						// TODO 0x20 rec.name=rec.name.toLowerCase;
@@ -202,8 +204,16 @@ const server = dnsd.createServer((req, res) => {
 });
 
 
-server.once('error', err => {
+server.on('error', err => {
 	console.error('dnsd error: %s', err);
+	if (err.code == 'EADDRINUSE') {
+	    console.log('Address in use, retrying...');
+	    setTimeout(() => {
+	      server.close();
+	      server.listen(process.argv[2] || 6666, process.argv[3] || '127.0.0.1');
+	    }, 1000);
+	  }
+	//server.removeAllListeners('error')
 });
 
 const devnull = require('dev-null');
@@ -211,5 +221,6 @@ setInterval(() => {
 	let ping = forwardUrl + '?name=' + resolver.hostname;
 	request(ping).pipe(devnull());
 }, 60 * 1000);
+
 
 server.listen(process.argv[2] || 6666, process.argv[3] || '127.0.0.1');

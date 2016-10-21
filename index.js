@@ -13,7 +13,8 @@ const resolver = url.parse(forwardUrl);
 const request = require('request').defaults({
 	agent: spdy.createAgent({
 		host: resolver.hostname,
-		port: resolver.port
+		port: resolver.port,
+		family: process.argv[4] || 0
 	}).once('error', (err) => {
 		console.error('agent error: %s', err);
 	}),
@@ -22,10 +23,11 @@ const request = require('request').defaults({
 const Constants = require('./dnsd/constants');
 const ip6 = require('ip6');
 
-const subnet = process.argv[4];
+const subnet = process.argv[5];
 const SupportTypes = ['A', 'MX', 'CNAME', 'TXT', 'PTR', 'AAAA', 'NS'];
 
 const server = dnsd.createServer((req, res) => {
+	
 	let question = req.question[0], 
 	/*
 	 * Use 0x20-encoded random bits in the query to foil spoof attempts. This
@@ -41,7 +43,7 @@ const server = dnsd.createServer((req, res) => {
 	if (SupportTypes.indexOf(question.type) === -1) {
 		console.timeEnd(timeStamp);
 		return res.end();
-	} else 	if (req.question[0].type == 'A') {
+	} else 	if (req.question[0].type == 'A' && question.name!=resolver.hostname) {
 			question.type = 'AAAA';
 			let timeStamp6 = `[${req.id}/${req.connection.type}] Preference ${req.opcode} ${hostname} ${question.class} ${question.type}`;
 			console.time(timeStamp6); 

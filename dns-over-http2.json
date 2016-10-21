@@ -1,18 +1,18 @@
 {//PM2 multiprocess management.
   "apps": [
     {
-    "name"        : "dns-over-http2#1",
-    "script"      : "C:/app/dns-over-http2-master/index.js",
-    "args"        : [532, "0.0.0.0"],
-    "env": {
+      "name"        : "dns-over-http2#1",
+      "script"      : "C:/app/dns-over-http2-master/index.js",
+      "args"        : [532, "0.0.0.0", 4],
+      "env": {
         "NODE_ENV": "production"
-    },
+      },
     },
     {
       "exec_mode": "fork_mode",
       "script": "C:/app/dns-over-http2-master/index.js",
       "name": "dns-over-http2#2",
-      "args"        : [533, "0.0.0.0"],
+      "args"        : [533, "0.0.0.0", 6],
       "env": {
         "NODE_ENV": "production"
       },
@@ -20,7 +20,7 @@
       "exec_mode": "fork_mode",
       "script": "C:/app/dns-over-http2-master/index.js",
       "name": "dns-over-http2#3",
-      "args"        : [534, "0.0.0.0"],
+      "args"        : [534, "0.0.0.0", 4],
       "env": {
         "NODE_ENV": "production"
       },
@@ -28,7 +28,7 @@
       "exec_mode": "fork_mode",
       "script": "C:/app/dns-over-http2-master/index.js",
       "name": "dns-over-http2#4",
-      "args"        : [535, "0.0.0.0"],
+      "args"        : [535, "0.0.0.0", 6],
       "env": {
         "NODE_ENV": "production"
       },
@@ -36,7 +36,7 @@
       "exec_mode": "fork_mode",
       "script": "C:/app/dns-over-http2-master/index.js",
       "name": "dns-over-http2#5",
-      "args"        : [536, "0.0.0.0"],
+      "args"        : [536, "0.0.0.0", 4],
       "env": {
         "NODE_ENV": "production"
       },
@@ -44,7 +44,7 @@
       "exec_mode": "fork_mode",
       "script": "C:/app/dns-over-http2-master/index.js",
       "name": "dns-over-http2#6",
-      "args"        : [537, "0.0.0.0"],
+      "args"        : [537, "0.0.0.0", 6],
       "env": {
         "NODE_ENV": "production"
       },
@@ -52,7 +52,7 @@
       "exec_mode": "fork_mode",
       "script": "C:/app/dns-over-http2-master/index.js",
       "name": "dns-over-http2#7",
-      "args"        : [538, "0.0.0.0"],
+      "args"        : [538, "0.0.0.0", 4],
       "env": {
         "NODE_ENV": "production"
       },
@@ -60,7 +60,7 @@
       "exec_mode": "fork_mode",
       "script": "C:/app/dns-over-http2-master/index.js",
       "name": "dns-over-http2#8",
-      "args"        : [539, "0.0.0.0"],
+      "args"        : [539, "0.0.0.0", 6],
       "env": {
         "NODE_ENV": "production"
       },

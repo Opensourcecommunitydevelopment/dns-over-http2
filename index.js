@@ -73,6 +73,7 @@ const server = dnsd.createServer((req, res) => {
 				qs: query,
 				gzip: true
 			}, (err, response, output) => {
+				if (typeof output.Authority !== 'undefined' || output.Status == 2) {
 					// fix A Query blocking
 					// Reset Back to and for Original query Type fallback
 					question.type = 'A';

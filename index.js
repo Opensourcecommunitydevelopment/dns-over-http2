@@ -1,5 +1,5 @@
 'use strict';
-
+//kein query Type if ==1default
 process.setMaxListeners(0);
 
 const dnsd = require('./dnsd/named');
@@ -35,7 +35,7 @@ const server = dnsd.createServer((req, res) => {
 	 * servers and checks if the reply still has the correct casing. This
 	 * feature is an Experimental implementation of draft dns-0x20.
 	 */ 
-	hostname = randomCase(question.name);
+	hostname = question.name;
 	let timeStamp = `[${req.id}/${req.connection.type}] ${req.opcode} ${hostname} ${question.class} ${question.type}`;
 	console.time(timeStamp);	
 
@@ -75,7 +75,13 @@ const server = dnsd.createServer((req, res) => {
 				qs: query,
 				gzip: true
 			}, (err, response, output) => {
-				if (typeof output.Authority !== 'undefined' || output.Status == 2) {
+
+				//if(typeof output.Answer[1] !== 'undefined'){if(output.Answer.type == 5&&output.Answer[1].type == 28)return//var cname=1}
+				var cname=0;var cnameaaaa=0;
+					if(output.Answer.length != 0&&output.Answer[0].type ==5) cname=1
+						if(output.Answer[output.Answer.length-1].type == 28) cnameaaaa=1
+			}
+				if (typeof output.Authority !== 'undefined'||output.Status == 2||(cname==1&&cnameaaaa!=1 )) {//cname record
 					// fix A Query blocking
 					// Reset Back to and for Original query Type fallback
 					question.type = 'A';
@@ -119,8 +125,8 @@ const server = dnsd.createServer((req, res) => {
 						res.end();
 					});
 				}
-				else if (typeof output.Answer !== 'undefined') {
-					if (output && output.Answer && output.Question[0]['type'] === 28 ) {
+				else if (typeof output.Answer !== 'undefined') {//output.type!=5
+					if (output && output.Answer) {
 						res.answer = output.Answer.map(rec => {
 							rec.ttl = rec.TTL;
 							rec.type = Constants.type_to_label(rec.type);
@@ -128,6 +134,7 @@ const server = dnsd.createServer((req, res) => {
 							if (rec.type === 'AAAA') { 
 								// dnsd is expecting long IP Version 6 format
 								rec.data = ip6.normalize(rec.data); 
+								rec.ttl = rec.TTL;
 							}
 							return rec;
 						});
@@ -187,7 +194,7 @@ const server = dnsd.createServer((req, res) => {
 							rec.data = rec.data.slice(1, -1);
 							break;
 						case 'AAAA':
-							// dnsd is expecting long IPVersion 6 format
+							// dnsd is expecting long IPVersion 6 format
 							rec.data = ip6.normalize(rec.data);
 							break;
 						}						

@@ -78,9 +78,11 @@ const server = dnsd.createServer((req, res) => {
 
 				//if(typeof output.Answer[1] !== 'undefined'){if(output.Answer.type == 5&&output.Answer[1].type == 28)return//var cname=1}
 				var cname=0;var cnameaaaa=0;
+				if(typeof output.Answer !== 'undefined'){//console.dir(output);
 					if(output.Answer.length != 0&&output.Answer[0].type ==5) cname=1
 						if(output.Answer[output.Answer.length-1].type == 28) cnameaaaa=1
 			}
+				//console.dir(cname);console.dir(cnameaaaa)
 				if (typeof output.Authority !== 'undefined'||output.Status == 2||(cname==1&&cnameaaaa!=1 )) {//cname record
 					// fix A Query blocking
 					// Reset Back to and for Original query Type fallback
@@ -112,6 +114,7 @@ const server = dnsd.createServer((req, res) => {
 							res.answer = output.Answer.map(rec => {
 								rec.ttl = rec.TTL;
 								rec.type = Constants.type_to_label(rec.type);
+								//console.dir(rec)
 								return rec;
 							});
 						} else if (err) {

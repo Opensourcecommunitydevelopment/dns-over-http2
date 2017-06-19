@@ -247,5 +247,4 @@ process.on('SIGINT', function(msg) {
     process.exit(0);
 });
 
-
 server.listen(process.argv[2] || 6666, process.argv[3] || '127.0.0.1');

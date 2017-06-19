@@ -1,9 +1,15 @@
 # DNS Over HTTP/2
 
 # EXPERIMENTAL only
+
+## For original development version see:
+
+[https://github.com/Opensourcecommunitydevelopment/dns-over-http2](https://github.com/Opensourcecommunitydevelopment/dns-over-http2)
+
 ## For original version see:
 
 [https://github.com/yyfrankyy/dns-over-http2](https://github.com/yyfrankyy/dns-over-http2)
+
 
 Inspired by [gdns-go](https://github.com/ayanamist/gdns-go), but do less, I'd
 like to keep it as simple as possible.

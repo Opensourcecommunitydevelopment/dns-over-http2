@@ -1,7 +1,7 @@
 # DNS Over HTTP/2
 
 # IPv6 Forced Version for Dual-Stack Hosts.
-Inspired by [6dns](https://github.com/adamyi/v6dns), but integrated. 
+Inspired by [v6dns](https://github.com/adamyi/v6dns), but integrated. 
 ## For original version see:
 
 [https://github.com/yyfrankyy/dns-over-http2](https://github.com/yyfrankyy/dns-over-http2)

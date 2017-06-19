@@ -10,6 +10,12 @@ const url = require('url');
 const forwardUrl = 'https://dns.google.com:443/resolve';
 const resolver = url.parse(forwardUrl);
 
+var cluster = require('cluster');  
+var cpuCount = require('os').cpus().length;
+
+
+
+
 const request = require('request').defaults({
 	agent: spdy.createAgent({
 		host: resolver.hostname,
@@ -36,18 +42,18 @@ const server = dnsd.createServer((req, res) => {
 	 * feature is an Experimental implementation of draft dns-0x20.
 	 */ 
 	hostname = question.name;
-	let timeStamp = `[${req.id}/${req.connection.type}] ${req.opcode} ${hostname} ${question.class} ${question.type}`;
-	console.time(timeStamp);	
+	//let timeStamp = `[${req.id}/${req.connection.type}] ${req.opcode} ${hostname} ${question.class} ${question.type}`;
+	//console.time(timeStamp);	
 
 	// TODO unsupported due to dnsd's broken implementation.
 	if (SupportTypes.indexOf(question.type) === -1) {
-		console.timeEnd(timeStamp);
+		//console.timeEnd(timeStamp);
 		return res.end();
 	} else 	if (req.question[0].type == 'A' && question.name!=resolver.hostname) {
 			question.type = 'AAAA';
-			let timeStamp6 = `[${req.id}/${req.connection.type}] Preference ${req.opcode} ${hostname} ${question.class} ${question.type}`;
-			console.time(timeStamp6); 
-			console.log('Testing %s for %s', question.type,hostname);
+			//let timeStamp6 = `[${req.id}/${req.connection.type}] Preference ${req.opcode} ${hostname} ${question.class} ${question.type}`;
+			//console.time(timeStamp6); 
+			//console.log('Testing %s for %s', question.type,hostname);
 			// API clients concerned about possible side-channel privacy attacks
 			// using the packet sizes of HTTPS GET requests can use this to make
 			// all
@@ -112,7 +118,6 @@ const server = dnsd.createServer((req, res) => {
 					}, (err, response, output) => {
 						if (output && output.Answer) {
 							res.answer = output.Answer.map(rec => {
-								rec.ttl = rec.TTL;
 								rec.type = Constants.type_to_label(rec.type);
 								//console.dir(rec)
 								return rec;
@@ -124,20 +129,18 @@ const server = dnsd.createServer((req, res) => {
 							// Resolvercomment "Response from x.x.x.x"
 							process.stdout.write(output.Comment)
 						}
-						console.timeEnd(timeStamp);
+						//console.timeEnd(timeStamp);
 						res.end();
 					});
 				}
 				else if (typeof output.Answer !== 'undefined') {//output.type!=5
 					if (output && output.Answer) {
 						res.answer = output.Answer.map(rec => {
-							rec.ttl = rec.TTL;
 							rec.type = Constants.type_to_label(rec.type);
 							// CNAME
 							if (rec.type === 'AAAA') { 
 								// dnsd is expecting long IP Version 6 format
 								rec.data = ip6.normalize(rec.data); 
-								rec.ttl = rec.TTL;
 							}
 							return rec;
 						});
@@ -148,7 +151,7 @@ const server = dnsd.createServer((req, res) => {
 						// Resolvercomment "Response from x.x.x.x"
 						process.stdout.write(output.Comment)
 					}
-					console.timeEnd(timeStamp6);
+					//console.timeEnd(timeStamp6);
 					res.end();
 				}
 			});}
@@ -186,7 +189,6 @@ const server = dnsd.createServer((req, res) => {
 				if (output && output.Answer) {
 					res.answer = output.Answer.map(rec => {
 						// TODO 0x20 rec.name=rec.name.toLowerCase;
-						rec.ttl = rec.TTL;
 						rec.type = Constants.type_to_label(rec.type);
 						switch (rec.type) {
 						case 'MX':
@@ -210,7 +212,7 @@ const server = dnsd.createServer((req, res) => {
 					// Resolvercomment "Response from x.x.x.x"
 					process.stdout.write(output.Comment)
 				}
-				console.timeEnd(timeStamp);
+				//console.timeEnd(timeStamp);
 				res.end();
 			});
 	}		
@@ -233,7 +235,17 @@ const devnull = require('dev-null');
 setInterval(() => {
 	let ping = forwardUrl + '?name=' + resolver.hostname;
 	request(ping).pipe(devnull());
-}, 60 * 1000);
+}, 300 * 1000);
+
+
+//pm2
+process.on('SIGINT', function(msg) {  
+    // process reload ongoing
+    server.removeAllListeners();
+	server.close();
+    // by default, you have 1600ms
+    process.exit(0);
+});
 
 
 server.listen(process.argv[2] || 6666, process.argv[3] || '127.0.0.1');

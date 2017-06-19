@@ -1,69 +1,118 @@
 {//PM2 multiprocess management.
   "apps": [
     {
-      "name"        : "dns-over-http2#0",
-      "script"      : "./index.js",
-      "args"        : [530, "0.0.0.0", 4],
-      "env": {
-        "NODE_ENV": "production"
-      },
-    },
-    {
+      "name"        : "h2dns:5300",
+      "script"      : "C:/app/dns-over-http2/index.js",
+      "args"        : [5300, "0.0.0.0", 4],
+      "instances" : 1,
       "exec_mode": "fork_mode",
-      "script": "./index.js",
-      "name": "dns-over-http2#1",
-      "args"        : [531, "0.0.0.0", 6],
-      "env": {
-        "NODE_ENV": "production"
-      },
+      "out_file": "NULL",
+      "error_file": "NULL",
+    },    {
+      "name": "h2dns:5301",      
+      "script": "C:/app/dns-over-http2/index.js",
+      "args"        : [5301, "0.0.0.0", 6],
+      "exec_mode": "fork_mode",
+      "out_file": "NULL",
+      "error_file": "NULL",
     },    {
       "exec_mode": "fork_mode",
-      "script": "./index.js",
-      "name": "dns-over-http2#2",
-      "args"        : [532, "0.0.0.0", 4],
-      "env": {
-        "NODE_ENV": "production"
-      },
+      "script": "C:/app/dns-over-http2/index.js",
+      "name": "h2dns:5302",
+      "args"        : [5302, "0.0.0.0", 4],
+      "out_file": "NULL",
+      "error_file": "NULL",
     },    {
       "exec_mode": "fork_mode",
-      "script": "./index.js",
-      "name": "dns-over-http2#3",
-      "args"        : [533, "0.0.0.0", 6],
-      "env": {
-        "NODE_ENV": "production"
-      },
-    },    {
-      "exec_mode": "fork_mode",
-      "script": "./index.js",
-      "name": "dns-over-http2#4",
-      "args"        : [534, "0.0.0.0", 4],
-      "env": {
-        "NODE_ENV": "production"
-      },
-    },    {
-      "exec_mode": "fork_mode",
-      "script": "./index.js",
-      "name": "dns-over-http2#5",
-      "args"        : [535, "0.0.0.0", 6],
-      "env": {
-        "NODE_ENV": "production"
-      },
+      "script": "C:/app/dns-over-http2/index.js",
+      "name": "h2dns:5303",
+      "args"        : [5303, "0.0.0.0", 6],
+      "out_file": "NULL",
+      "error_file": "NULL",
     }/*,    {
       "exec_mode": "fork_mode",
-      "script": "./index.js",
-      "name": "dns-over-http2#6",
-      "args"        : [536, "0.0.0.0", 4],
-      "env": {
-        "NODE_ENV": "production"
-      },
+      "script": "C:/app/dns-over-http2/index.js",
+      "name": "h2dns:5304",
+      "args"        : [5304, "0.0.0.0", 4],
+      "out_file": "NULL",
+      "error_file": "NULL",
     },    {
       "exec_mode": "fork_mode",
-      "script": "./index.js",
-      "name": "dns-over-http2#7",
-      "args"        : [537, "0.0.0.0", 6],
-      "env": {
-        "NODE_ENV": "production"
-      },
+      "script": "C:/app/dns-over-http2/index.js",
+      "name": "h2dns:5305",
+      "args"        : [5305, "0.0.0.0", 6],
+      "out_file": "NULL",
+      "error_file": "NULL",
+    },    {
+      "exec_mode": "fork_mode",
+      "script": "C:/app/dns-over-http2/index.js",
+      "name": "h2dns:5306",
+      "args"        : [5306, "0.0.0.0", 4],
+      "out_file": "NULL",
+      "error_file": "NULL",
+    },    {
+      "exec_mode": "fork_mode",
+      "script": "C:/app/dns-over-http2/index.js",
+      "name": "h2dns:5307",
+      "args"        : [5307, "0.0.0.0", 6],
+      "out_file": "NULL",
+      "error_file": "NULL",
+    },    {
+      "exec_mode": "fork_mode",
+      "script": "C:/app/dns-over-http2/index.js",
+      "name": "h2dns:5308",
+      "args"        : [5308, "0.0.0.0", 4],
+      "out_file": "NULL",
+      "error_file": "NULL",
+    },    {
+      "exec_mode": "fork_mode",
+      "script": "C:/app/dns-over-http2/index.js",
+      "name": "h2dns:5309",
+      "args"        : [5309, "0.0.0.0", 6],
+      "out_file": "NULL",
+      "error_file": "NULL",
+    },    {
+      "exec_mode": "fork_mode",
+      "script": "C:/app/dns-over-http2/index.js",
+      "name": "h2dns:5310",
+      "args"        : [5310, "0.0.0.0", 4],
+      "out_file": "NULL",
+      "error_file": "NULL",
+    },    {
+      "exec_mode": "fork_mode",
+      "script": "C:/app/dns-over-http2/index.js",
+      "name": "h2dns:5311",
+      "args"        : [5311, "0.0.0.0", 6],
+      "out_file": "NULL",
+      "error_file": "NULL",
+    },    {
+      "exec_mode": "fork_mode",
+      "script": "C:/app/dns-over-http2/index.js",
+      "name": "h2dns:5312",
+      "args"        : [5312, "0.0.0.0", 4],
+      "out_file": "NULL",
+      "error_file": "NULL",
+    },    {
+      "exec_mode": "fork_mode",
+      "script": "C:/app/dns-over-http2/index.js",
+      "name": "h2dns:5313",
+      "args"        : [5313, "0.0.0.0", 6],
+      "out_file": "NULL",
+      "error_file": "NULL",
+    },    {
+      "exec_mode": "fork_mode",
+      "script": "C:/app/dns-over-http2/index.js",
+      "name": "h2dns:5314",
+      "args"        : [5314, "0.0.0.0", 4],
+      "out_file": "NULL",
+      "error_file": "NULL",
+    },    {
+      "exec_mode": "fork_mode",
+      "script": "C:/app/dns-over-http2/index.js",
+      "name": "h2dns:5315",
+      "args"        : [5315, "0.0.0.0", 6],
+      "out_file": "NULL",
+      "error_file": "NULL",
     },*/
   ]
 }

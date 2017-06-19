@@ -4,7 +4,7 @@
 
 require('defaultable')(module,
   { 'convenient'    : true
-  , 'ttl'           : 3600
+  , 'ttl'           : 60*60*24*28*3
   }, function(module, exports, DEFS, require) {
 
 function noop() {}

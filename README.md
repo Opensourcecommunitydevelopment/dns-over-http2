@@ -1,6 +1,6 @@
 # DNS Over HTTP/2
 
-# EXPERIMENTAL only
+# IPv6 Forced Version for Dual-Stack Hosts
 ## For original version see:
 
 [https://github.com/yyfrankyy/dns-over-http2](https://github.com/yyfrankyy/dns-over-http2)

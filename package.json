@@ -5,7 +5,8 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/GJSmith3rd/dns-over-http2.git"
+    "url": "git://github.com/Opensourcecommunitydevelopment/dns-over-http2.git"
+
   },
   "keywords": [
     "dns",
@@ -14,17 +15,20 @@
   "author": "Frank Xu <yyfrankyy@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/GJSmith3rd/dns-over-http2/issues"
+    "url": "https://github.com/Opensourcecommunitydevelopment/dns-over-http2/issues"
   },
-  "homepage": "https://github.com/GJSmith3rd/dns-over-http2#readme",
+  "homepage": "https://github.com/Opensourcecommunitydevelopment/dns-over-http2#readme",
+
   "dependencies": {
     "defaultable": "^0.7.2",
     "dev-null": "^0.1.1",
     "dnsd": "^0.9.6",
-    "ip6": "0.0.4",
+    "ip6": "^0.1.5",
+    "random-case": "^1.0.0",
     "randomstring": "^1.1.5",
     "request": "^2.75.0",
-    "spdy": "^3.4.3"
+    "spdy": "^3.4.4",
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "benchmark": "^2.1.1"

@@ -1,0 +1,1 @@
+powershell pm2 reload all

@@ -1,0 +1,1 @@
+pm2 startOrGracefulReload C:\app\dns-over-http2\dns-over-http2.json

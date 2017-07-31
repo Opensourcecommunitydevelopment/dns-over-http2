@@ -139,7 +139,8 @@ const server = dnsd.createServer((req, res) =>
                         if(output.Answer.length>1){
                             shuffle(output.Answer);
 						}
-						
+						res.recursion_available = output.RA;
+						res.recursion_desired = output.RD;
 						res.answer = output.Answer.map(rec =>
 						{
 							rec.type = Constants.type_to_label(rec.type);
@@ -169,6 +170,8 @@ const server = dnsd.createServer((req, res) =>
 						shuffle(output.Answer);
 					}
 
+					res.recursion_available = output.RA;
+					res.recursion_desired = output.RD;
 					res.answer = output.Answer.map(rec =>
 					{
 						rec.type = Constants.type_to_label(rec.type);
@@ -239,6 +242,8 @@ const server = dnsd.createServer((req, res) =>
                     shuffle(output.Answer);
 				}
 				
+				res.recursion_available = output.RA;
+				res.recursion_desired = output.RD;
 				res.answer = output.Answer.map(rec =>
 				{
 					// TODO 0x20 rec.name=rec.name.toLowerCase;

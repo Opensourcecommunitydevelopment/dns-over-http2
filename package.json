@@ -2,6 +2,7 @@
   "name": "dns-over-http2",
   "version": "1.0.0",
   "description": "An UDP DNS Server over Google's HTTPS DNS API",
+  "main": "h2dns.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/Opensourcecommunitydevelopment/dns-over-http2.git"

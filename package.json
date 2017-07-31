@@ -2,7 +2,6 @@
   "name": "dns-over-http2",
   "version": "1.0.0",
   "description": "An UDP DNS Server over Google's HTTPS DNS API",
-  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/Opensourcecommunitydevelopment/dns-over-http2.git"
@@ -24,8 +23,9 @@
     "ip6": "^0.1.5",
     "random-case": "^1.0.0",
     "randomstring": "^1.1.5",
-    "request": "^2.75.0",
-    "spdy": "^3.4.4",
+    "request": "^2.81.0",
+    "shuffle-array": "^1.0.1",
+    "spdy": "^3.4.7",
     "url": "^0.11.0"
   },
   "devDependencies": {

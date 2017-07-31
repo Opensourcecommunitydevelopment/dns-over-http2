@@ -5,6 +5,7 @@ process.setMaxListeners(0);
 const dnsd = require('./dnsd/named');
 const randomCase = require('random-case');
 const randomstring = require('randomstring');
+const shuffle = require('shuffle-array');
 const spdy = require('spdy');
 const url = require('url');
 const forwardUrl = 'https://dns.google.com:443/resolve';
@@ -134,6 +135,11 @@ const server = dnsd.createServer((req, res) =>
 				{
 					if (output && output.Answer)
 					{
+                        // https://en.wikipedia.org/wiki/Round-robin_DNS
+                        if(output.Answer.length>1){
+                            shuffle(output.Answer);
+						}
+						
 						res.answer = output.Answer.map(rec =>
 						{
 							rec.type = Constants.type_to_label(rec.type);
@@ -148,7 +154,7 @@ const server = dnsd.createServer((req, res) =>
 					if (typeof output.Comment !== 'undefined')
 					{
 						// Resolvercomment "Response from x.x.x.x"
-						process.stdout.write(output.Comment)
+						process.stdout.write(output.Comment + "\n")
 					}
 					//console.timeEnd(timeStamp);
 					res.end();
@@ -158,6 +164,11 @@ const server = dnsd.createServer((req, res) =>
 			{ //output.type!=5
 				if (output && output.Answer)
 				{
+					// https://en.wikipedia.org/wiki/Round-robin_DNS
+					if(output.Answer.length>1){
+						shuffle(output.Answer);
+					}
+
 					res.answer = output.Answer.map(rec =>
 					{
 						rec.type = Constants.type_to_label(rec.type);
@@ -177,7 +188,7 @@ const server = dnsd.createServer((req, res) =>
 				if (typeof output.Comment !== 'undefined')
 				{
 					// Resolvercomment "Response from x.x.x.x"
-					process.stdout.write(output.Comment)
+					process.stdout.write(output.Comment + "\n")
 				}
 				//console.timeEnd(timeStamp6);
 				res.end();
@@ -224,6 +235,10 @@ const server = dnsd.createServer((req, res) =>
 		{
 			if (output && output.Answer)
 			{
+                if(output.Answer.length>1){
+                    shuffle(output.Answer);
+				}
+				
 				res.answer = output.Answer.map(rec =>
 				{
 					// TODO 0x20 rec.name=rec.name.toLowerCase;
@@ -252,7 +267,7 @@ const server = dnsd.createServer((req, res) =>
 			if (typeof output.Comment !== 'undefined')
 			{
 				// Resolvercomment "Response from x.x.x.x"
-				process.stdout.write(output.Comment)
+				process.stdout.write(output.Comment + "\n")
 			}
 			//console.timeEnd(timeStamp);
 			res.end();

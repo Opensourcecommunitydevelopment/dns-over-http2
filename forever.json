@@ -1,0 +1,189 @@
+[
+  {
+    "append": true,
+    "silent": true,
+    "watch": true,
+    "script": "../../app/dns-over-http2/h2dns",
+    "args": [5300, "0.0.0.0", 4]
+  },
+  {
+  
+  
+  
+    "append": true,
+    "silent": true,
+    "watch": true,
+    "script": "h2dns",
+    "sourceDir": "C:/app/dns-over-http2/",
+    "workingDir": "C:/app/dns-over-http2/",
+    "args": [5301, "0.0.0.0", 6]
+  },
+  {
+  
+  
+  
+    "append": true,
+    "silent": true,
+    "watch": true,
+    "script": "h2dns",
+    "sourceDir": "C:/app/dns-over-http2/",
+    "workingDir": "C:/app/dns-over-http2/",
+    "args": [5302, "0.0.0.0", 4]
+  },
+  {
+  
+  
+  
+    "append": true,
+    "silent": true,
+    "watch": true,
+    "script": "h2dns",
+    "sourceDir": "C:/app/dns-over-http2/",
+    "workingDir": "C:/app/dns-over-http2/",
+    "args": [5303, "0.0.0.0", 6]
+  },
+  {
+  
+  
+  
+    "append": true,
+    "silent": true,
+    "watch": true,
+    "script": "h2dns",
+    "sourceDir": "C:/app/dns-over-http2/",
+    "workingDir": "C:/app/dns-over-http2/",
+    "args": [5304, "0.0.0.0", 4]
+  },
+  {
+  
+  
+  
+    "append": true,
+    "silent": true,
+    "watch": true,
+    "script": "h2dns",
+    "sourceDir": "C:/app/dns-over-http2/",
+    "workingDir": "C:/app/dns-over-http2/",
+    "args": [5305, "0.0.0.0", 6]
+  },
+  {
+  
+  
+  
+    "append": true,
+    "silent": true,
+    "watch": true,
+    "script": "h2dns",
+    "sourceDir": "C:/app/dns-over-http2/",
+    "workingDir": "C:/app/dns-over-http2/",
+    "args": [5306, "0.0.0.0", 4]
+  },
+  {
+  
+  
+  
+    "append": true,
+    "silent": true,
+    "watch": true,
+    "script": "h2dns",
+    "sourceDir": "C:/app/dns-over-http2/",
+    "workingDir": "C:/app/dns-over-http2/",
+    "args": [5307, "0.0.0.0", 6]
+  },
+  {
+  
+  
+  
+    "append": true,
+    "silent": true,
+    "watch": true,
+    "script": "h2dns",
+    "sourceDir": "C:/app/dns-over-http2/",
+    "workingDir": "C:/app/dns-over-http2/",
+    "args": [5308, "0.0.0.0", 4]
+  },
+  {
+  
+  
+  
+    "append": true,
+    "silent": true,
+    "watch": true,
+    "script": "h2dns",
+    "sourceDir": "C:/app/dns-over-http2/",
+    "workingDir": "C:/app/dns-over-http2/",
+    "args": [5309, "0.0.0.0", 6]
+  },
+  {
+  
+  
+  
+    "append": true,
+    "silent": true,
+    "watch": true,
+    "script": "h2dns",
+    "sourceDir": "C:/app/dns-over-http2/",
+    "workingDir": "C:/app/dns-over-http2/",
+    "args": [5310, "0.0.0.0", 4]
+  },
+  {
+  
+  
+  
+    "append": true,
+    "silent": true,
+    "watch": true,
+    "script": "h2dns",
+    "sourceDir": "C:/app/dns-over-http2/",
+    "workingDir": "C:/app/dns-over-http2/",
+    "args": [5311, "0.0.0.0", 6]
+  },
+  {
+  
+  
+  
+    "append": true,
+    "silent": true,
+    "watch": true,
+    "script": "h2dns",
+    "sourceDir": "C:/app/dns-over-http2/",
+    "workingDir": "C:/app/dns-over-http2/",
+    "args": [5312, "0.0.0.0", 4]
+  },
+  {
+  
+  
+  
+    "append": true,
+    "silent": true,
+    "watch": true,
+    "script": "h2dns",
+    "sourceDir": "C:/app/dns-over-http2/",
+    "workingDir": "C:/app/dns-over-http2/",
+    "args": [5313, "0.0.0.0", 6]
+  },
+  {
+  
+  
+  
+    "append": true,
+    "silent": true,
+    "watch": true,
+    "script": "h2dns",
+    "sourceDir": "C:/app/dns-over-http2/",
+    "workingDir": "C:/app/dns-over-http2/",
+    "args": [5314, "0.0.0.0", 4]
+  },
+  {
+  
+  
+  
+    "append": true,
+    "silent": true,
+    "watch": true,
+    "script": "h2dns",
+    "sourceDir": "C:/app/dns-over-http2/",
+    "workingDir": "C:/app/dns-over-http2/",
+    "args": [5315, "0.0.0.0", 6]
+  }
+]
